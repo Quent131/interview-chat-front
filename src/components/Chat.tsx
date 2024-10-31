@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Message } from "./Message";
 
 export const Chat = () => {
-  const { socket, messages } = useSocket();
+  const { messages } = useSocket();
 
   const chatRef = useRef<HTMLDivElement | null>(null);
 
