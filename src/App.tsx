@@ -1,6 +1,6 @@
 import { SocketProvider } from "./contexts/socket";
 import { Chat } from "./components/Chat";
-import { MessageInput } from "./components/ui/MessageInput";
+import { MessageInput } from "./components/MessageInput";
 
 function App() {
   return (

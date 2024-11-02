@@ -1,6 +1,5 @@
-import { Input } from "./ui/input";
 import { useSocket } from "@/contexts/socket";
-import { Button } from "./ui/button";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,6 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { SendHorizonal } from "lucide-react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 export const MessageInput = () => {
   const { socket } = useSocket();

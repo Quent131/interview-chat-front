@@ -8,7 +8,7 @@ import {
 } from "react";
 import { Socket } from "socket.io-client";
 
-export const SocketContext = createContext<{
+const SocketContext = createContext<{
   socket: Socket | undefined;
   messages: Message[];
 }>({
@@ -17,6 +17,7 @@ export const SocketContext = createContext<{
 });
 
 export const useSocket = () => useContext(SocketContext);
+
 export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [socket, setSocket] = useState<Socket | undefined>();
   const [messages, setMessages] = useState<Message[]>([]);
