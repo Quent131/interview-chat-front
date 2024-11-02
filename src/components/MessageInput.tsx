@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Input } from "./input";
+import { Input } from "./ui/input";
 import { useSocket } from "@/contexts/socket";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,6 +32,7 @@ export const MessageInput = () => {
           color: "#308446",
         },
         text: values.messageInput,
+        date: Date.now(),
       });
     form.reset();
   };
