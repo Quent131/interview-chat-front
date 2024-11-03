@@ -22,7 +22,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { ColorPicker } from "./ui/color-picker";
 
-export const UserDialog = ({ open }: Props) => {
+export const UserDialog = ({ open, setOpen }: Props) => {
   const color = useUserStore((state) => state.color);
   const username = useUserStore((state) => state.username);
   const setUserInfos = useUserStore((state) => state.setUserInfos);
@@ -37,10 +37,11 @@ export const UserDialog = ({ open }: Props) => {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     setUserInfos(values.username, values.color);
+    setOpen(false);
   };
 
   return (
-    <Dialog open={!color || !username}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Bienvenue sur le chat</DialogTitle>
@@ -71,9 +72,9 @@ export const UserDialog = ({ open }: Props) => {
               control={form.control}
               name="color"
               render={({ field }) => (
-                <FormItem className="flex-1">
+                <FormItem className="flex-1 flex flex-col">
                   <FormLabel>Couleur du pseudo</FormLabel>
-                  <FormControl>
+                  <FormControl className="self-center">
                     <ColorPicker {...field} />
                   </FormControl>
                   <FormMessage />
@@ -90,6 +91,7 @@ export const UserDialog = ({ open }: Props) => {
 
 type Props = {
   open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
 const formSchema = z.object({

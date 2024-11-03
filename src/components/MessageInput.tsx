@@ -14,9 +14,11 @@ import {
 import { SendHorizonal } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useUserStore } from "@/store/user";
 
 export const MessageInput = () => {
   const { socket } = useSocket();
+  const { username, color } = useUserStore();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,8 +31,8 @@ export const MessageInput = () => {
       socket.emit("send-message", {
         type: "text",
         user: {
-          username: "Quentin",
-          color: "#308446",
+          username: username,
+          color: color,
         },
         text: values.messageInput,
         date: Date.now(),
@@ -51,13 +53,17 @@ export const MessageInput = () => {
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <Input placeholder="Envoyer un message" {...field} />
+                  <Input
+                    placeholder="Envoyer un message"
+                    {...field}
+                    disabled={!username || !color}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">
+          <Button type="submit" disabled={!username || !color}>
             <SendHorizonal />
           </Button>
         </form>
