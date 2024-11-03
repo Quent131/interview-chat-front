@@ -59,7 +59,6 @@ export const MessageInput = () => {
                     disabled={!username || !color}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />

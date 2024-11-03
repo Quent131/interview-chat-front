@@ -22,10 +22,9 @@ export const Chat = () => {
       setScrolling(true);
       chatRef.current.lastElementChild?.scrollIntoView({ behavior: "smooth" });
 
-      // Reset scrolling state after a slight delay
       const scrollEndTimer = setTimeout(() => {
         setScrolling(false);
-      }, 100); // Ajustez ce délai selon vos besoins
+      }, 100);
 
       setShowButton(false);
       return () => clearTimeout(scrollEndTimer);
