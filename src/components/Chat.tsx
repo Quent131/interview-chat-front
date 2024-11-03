@@ -8,6 +8,7 @@ export const Chat = () => {
   const chatRef = useRef<HTMLDivElement | null>(null);
   const [autoScroll, setAutoScroll] = useState(true);
   const [showButton, setShowButton] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
   const handleScroll = () => {
     if (!chatRef.current) return;
@@ -18,13 +19,21 @@ export const Chat = () => {
 
   useEffect(() => {
     if (autoScroll && chatRef.current) {
+      setScrolling(true);
       chatRef.current.lastElementChild?.scrollIntoView({ behavior: "smooth" });
+
+      // Reset scrolling state after a slight delay
+      const scrollEndTimer = setTimeout(() => {
+        setScrolling(false);
+      }, 100); // Ajustez ce délai selon vos besoins
+
       setShowButton(false);
+      return () => clearTimeout(scrollEndTimer);
     } else {
-      const timer = setTimeout(() => {
+      const buttonTimer = setTimeout(() => {
         setShowButton(true);
-      }, 200); // Ajustez le délai selon vos besoins
-      return () => clearTimeout(timer);
+      }, 200);
+      return () => clearTimeout(buttonTimer);
     }
   }, [messages, autoScroll]);
 
@@ -34,7 +43,7 @@ export const Chat = () => {
       className="overflow-y-auto pl-2 pt-2 flex-1"
       onScroll={handleScroll}
     >
-      {!autoScroll && showButton && (
+      {!autoScroll && showButton && !scrolling && (
         <Button
           className="fixed left-1/2 transform -translate-x-1/2 z-50"
           onClick={() => {
